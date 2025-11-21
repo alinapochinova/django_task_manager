@@ -17,3 +17,13 @@
     </ul>
 </body>
 </html>
+<a href="{% url 'task_create' %}">Создать задачу</a>
+<ul>
+    {% for task in tasks %}
+    <li>
+        {{ task.title }}
+        — <a href="{% url 'task_update' task.pk %}">Редактировать</a>
+        — <a href="{% url 'task_delete' task.pk %}">Удалить</a>
+    </li>
+    {% endfor %}
+</ul>
