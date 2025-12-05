@@ -27,3 +27,36 @@
     </li>
     {% endfor %}
 </ul>
+<form method="GET">
+    <select name="category">
+        <option value="">Все категории</option>
+        {% for c in categories %}
+        <option value="{{ c.id }}">{{ c.name }}</option>
+        {% endfor %}
+    </select>
+    <select name="status">
+        <option value="">Любой статус</option>
+        <option value="done">Выполнено</option>
+        <option value="not_done">Не выполнено</option>
+    </select>
+    <button type="submit">Применить</button>
+</form>
+<input type="text" name="q" placeholder="Поиск...">
+<div>
+    {% if tasks.has_previous %}
+        <a href="?page={{ tasks.previous_page_number }}">Назад</a>
+    {% endif %}
+    Страница {{ tasks.number }} из {{ tasks.paginator.num_pages }}
+    {% if tasks.has_next %}
+        <a href="?page={{ tasks.next_page_number }}">Вперед</a>
+    {% endif %}
+</div>
+<nav>
+    <a href="{% url 'tasks_list' %}">Задачи</a>
+    {% if user.is_authenticated %}
+        <span>{{ user.username }}</span>
+        <a href="/accounts/logout/">Выход</a>
+    {% else %}
+        <a href="/accounts/login/">Вход</a>
+    {% endif %}
+</nav>
